@@ -1,7 +1,7 @@
 // pages/api/todos/[id].ts
 import { TodoModel } from "@/models";
 import type { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "@/lib/dbConnect";
+import MongoDBManager from "@/lib/dbConnect";
 import { Todo } from "@/models/Todo";
 type UpdateTodoBody = Partial<Todo>;
 
@@ -10,7 +10,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // first connect to the database
-  await dbConnect();
+  await MongoDBManager.getInstance().connect();
   const id = req.query.id as string;
   if (req.method === "GET") {
     // for retrieving a single todo

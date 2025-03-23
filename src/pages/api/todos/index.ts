@@ -1,6 +1,6 @@
 import { TodoModel } from "@/models";
 import type { NextApiRequest, NextApiResponse } from "next";
-import dbConnect from "@/lib/dbConnect";
+import MongoDBManager from "@/lib/dbConnect";
 interface CreateTodoBody {
   title: string;
   description: string;
@@ -10,7 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  await dbConnect();
+  await MongoDBManager.getInstance().connect();
   if (req.method === "GET") {
     // for retrieving todos list
     const todos = await TodoModel.find({}).limit(10).lean();

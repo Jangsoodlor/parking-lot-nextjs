@@ -10,7 +10,7 @@ export async function getServerSideProps() {
 export default function Page({data,} : InferGetServerSidePropsType<typeof getServerSideProps> ) {
   return (
     <div>
-      Parking Lot Let's Goooooo {data.name}!
+      Welcome to Parking Lot, {data.name}!
     </div>
   )
 }
