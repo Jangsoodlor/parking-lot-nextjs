@@ -6,7 +6,7 @@ class ParkingLot {
 
   public constructor(nLevels: number, spotsPerLevel: number) {
     for(let i=0;i<nLevels;i++) {
-      this.levels.push(new ParkingLevel(i+1, spotsPerLevel))
+      this.levels.push(new ParkingLevel(i, spotsPerLevel))
     }
   }
 

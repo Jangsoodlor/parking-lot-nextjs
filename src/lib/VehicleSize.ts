@@ -1,7 +1,7 @@
 enum VehicleSize {
-  Motorcycle,
-  Compact,
-  Large
+  Motorcycle = "Motorcycle",
+  Compact = "Compact",
+  Large = "Large"
 }
 
 export default VehicleSize

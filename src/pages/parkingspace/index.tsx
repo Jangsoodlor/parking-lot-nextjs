@@ -8,6 +8,7 @@ export async function getServerSideProps() {
 
 
 export default function Page({data,} : InferGetServerSidePropsType<typeof getServerSideProps> ) {
+  console.log(data);
   return (
     <div>
       Welcome to Parking Lot

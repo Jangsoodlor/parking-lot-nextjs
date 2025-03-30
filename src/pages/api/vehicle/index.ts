@@ -1,9 +1,12 @@
 import { VehicleModel } from "@/models";
 import type { NextApiRequest, NextApiResponse } from "next";
 import MongoDBManager from "@/lib/dbConnect";
+import ParkingSpot from "@/lib/ParkingSpot";
+
 interface CreateVehicleBody {
   licensePlate: string;
   size: string
+  spot: ParkingSpot | null
 }
 
 export default async function handler(
@@ -18,9 +21,14 @@ export default async function handler(
     
   } else if (req.method === "POST") {
     const body = req.body as CreateVehicleBody;
+    if(!body.licensePlate || !body.size) {
+      res.status(400).json({error: "Missing License Plate and/or Vehicle Size."})
+    }
+    console.log(body.licensePlate)
     const vehicle = new VehicleModel({
       licensePlate: body.licensePlate,
       size: body.size,
+      spot: body.spot
     });
     await vehicle.save();
 
