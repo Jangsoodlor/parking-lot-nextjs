@@ -4,12 +4,14 @@ import VehicleSize from "./VehicleSize"
 class ParkingSpot{
   private _size: VehicleSize
   public isOccupied: boolean
-  private _column: number
+  private _spotNumber: number
+  private _level: number
 
-  public constructor(size: string, column: number) {
+  public constructor(size: string, level: number, spotNumber: number) {
     this.isOccupied = false;
     this._size = VehicleSize[size as keyof typeof VehicleSize];
-    this._column = column
+    this._spotNumber = spotNumber
+    this._level = level
   }
 
   public get size() {

@@ -4,12 +4,12 @@ import VehicleSize from "./VehicleSize";
 
 class ParkingLevel {
   private spots: ParkingSpot[]
-  private level: number
+  private _level: number
 
   public constructor(level: number, nSpots: number) {
-    this.level = level
+    this._level = level
     for(let i=0;i<nSpots;i++) {
-      this.spots.push(new ParkingSpot(this.getParkingSpotSize(i), i));
+      this.spots.push(new ParkingSpot(this.getParkingSpotSize(i), level, i));
     }
   }
 
@@ -23,7 +23,7 @@ class ParkingLevel {
     return VehicleSize.Compact;
   }
 
-  public parkVehicle(vehicle: Vehicle): boolean {
+  public assignParkingSpot(vehicle: Vehicle): boolean {
     let tempSpots = []
     for(let spot of this.spots) {
       if(!spot.isOccupied && vehicle.canFitInSpot(spot)) {

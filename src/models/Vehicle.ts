@@ -1,6 +1,8 @@
-import ParkingSpot from "@/lib/ParkingSpot";
-import { prop } from "@typegoose/typegoose";
+import { prop, Ref } from "@typegoose/typegoose";
 import { nanoid } from "nanoid";
+import { ParkingSpot } from "./ParkingSpot";
+
+type ParkingSpotType = Ref<ParkingSpot>;
 
 export class Vehicle {
   @prop({ default: () => nanoid(9) })
@@ -9,11 +11,11 @@ export class Vehicle {
   @prop()
   licensePlate: string;
 
-  @prop({ required: true, unique: true })
+  @prop()
   size: string;
-
-  @prop({ required: true })
-  spot: ParkingSpot | null;
+  
+    @prop({ ref: () => ParkingSpot }) 
+    parkingSpot?: ParkingSpotType;
 
   @prop({ default: () => new Date() })
   createdAt: Date;

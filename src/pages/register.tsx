@@ -11,13 +11,14 @@ export default function Page() {
       spot: null
     }
     console.log(data)
-    await fetch('/api/vehicle', {
+    const response = await fetch('/api/vehicle', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json", // Sending as JSON
       },
       body: JSON.stringify(data),
     })
+    console.log(response);
   }
 
   const [size, setSize] = useState("Compact");

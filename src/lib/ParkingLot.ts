@@ -1,5 +1,6 @@
 import ParkingLevel from "./ParkingLevel"
 import { Vehicle } from "./Vehicle"
+// todo: make singleton parkinglot
 
 class ParkingLot {
   private levels: ParkingLevel[]
@@ -10,12 +11,18 @@ class ParkingLot {
     }
   }
 
-  public parkVehicle(vehicle: Vehicle): boolean {
+  public assignParkingSpot(vehicle: Vehicle): boolean {
     for (let level of this.levels) {
-      if(level.parkVehicle(vehicle)) {
+      if(level.assignParkingSpot(vehicle)) {
         return true;
       }
     }
     return false;
   }
+
+  public restoreParkingSpots(vehicles: Vehicle[]): void {
+    
+  }
 }
+
+export default ParkingLot
