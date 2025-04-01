@@ -8,7 +8,6 @@ export default function Page() {
     const data = {
       licensePlate: formData.get("licensePlate"),
       size: formData.get("size"),
-      spot: null
     }
     console.log(data)
     const response = await fetch('/api/vehicle', {
@@ -18,10 +17,14 @@ export default function Page() {
       },
       body: JSON.stringify(data),
     })
-    console.log(response);
+    const result = await response.json();
+    setModalContent(JSON.stringify(result, null, 2));
+    setModalOpen(true);
   }
 
   const [size, setSize] = useState("Compact");
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalContent, setModalContent] = useState("");
 
   return (
     <div className="p-4 justify-between">
@@ -67,6 +70,16 @@ export default function Page() {
         </fieldset>
         <button type="submit" className="bg-green-900">Submit</button>
       </form>
+      
+      {modalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-gray-700 p-6 rounded-lg shadow-lg w-1/3">
+            <h2 className="text-xl font-bold mb-4">Submission Result</h2>
+            <pre className="bg-gray-700 p-4 rounded text-sm overflow-auto max-h-60">{modalContent}</pre>
+            <button onClick={() => setModalOpen(false)} className="mt-4 bg-red-600 text-white px-4 py-2 rounded">Close</button>
+          </div>
+        </div>
+      )}
 
     </div>
   )

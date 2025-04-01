@@ -1,11 +1,13 @@
 import ParkingLevel from "./ParkingLevel"
 import { Vehicle } from "./Vehicle"
-// todo: make singleton parkinglot
 
 class ParkingLot {
-  private levels: ParkingLevel[]
+  private levels: ParkingLevel[];
+  private static instance: ParkingLot;
+  private static readonly LEVELS = 3;
+  private static readonly SPOTS_PER_LEVEL = 10;
 
-  public constructor(nLevels: number, spotsPerLevel: number) {
+  private constructor(nLevels: number, spotsPerLevel: number) {
     for(let i=0;i<nLevels;i++) {
       this.levels.push(new ParkingLevel(i, spotsPerLevel))
     }
@@ -20,8 +22,11 @@ class ParkingLot {
     return false;
   }
 
-  public restoreParkingSpots(vehicles: Vehicle[]): void {
-    
+  public static getInstance() {
+    if(!ParkingLot.instance) {
+      ParkingLot.instance = new ParkingLot(ParkingLot.LEVELS, ParkingLot.SPOTS_PER_LEVEL);
+    }
+    return ParkingLot.instance
   }
 }
 

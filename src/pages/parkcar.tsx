@@ -1,13 +1,23 @@
 import { FormEvent, useState } from 'react'
 
 export default function Page() {
+  async function getParkingLot () {
+    const response = await fetch('/api/parkinglot/')
+    const parkingLot = await response.json()
+    console.log(parkingLot.parkinglot)
+    return parkingLot.parkinglot
+  }
+
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const data = {
       licensePlate: formData.get("licensePlate")
-
     }
+
+    
+    
+
   }
 
   
