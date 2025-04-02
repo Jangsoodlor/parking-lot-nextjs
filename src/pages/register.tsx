@@ -17,8 +17,13 @@ export default function Page() {
       },
       body: JSON.stringify(data),
     })
-    const result = await response.json();
-    setModalContent(JSON.stringify(result, null, 2));
+    if(response.status === 404 || response.status === 500) {
+      setModalContent(JSON.stringify({"error": "error"}, null, 2))
+    }
+    else {
+      const result = await response.json();
+      setModalContent(JSON.stringify(result, null, 2));
+    }
     setModalOpen(true);
   }
 

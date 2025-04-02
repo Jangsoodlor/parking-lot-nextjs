@@ -1,3 +1,4 @@
+import ParkingLot from "./ParkingLot";
 import ParkingSpot from "./ParkingSpot";
 import { Vehicle } from "./Vehicle";
 import VehicleSize from "./VehicleSize";
@@ -8,6 +9,7 @@ class ParkingLevel {
 
   public constructor(level: number, nSpots: number) {
     this._level = level
+    this.spots = []
     for(let i=0;i<nSpots;i++) {
       this.spots.push(new ParkingSpot(this.getParkingSpotSize(i), level, i));
     }
@@ -23,19 +25,41 @@ class ParkingLevel {
     return VehicleSize.Compact;
   }
 
-  public assignParkingSpot(vehicle: Vehicle): boolean {
-    let tempSpots = []
+  private allocateSpots(vehicle: Vehicle): ParkingSpot[] | null {
+    const tempSpots: ParkingSpot[][] = []
+    let tempTempSpots: ParkingSpot[] = []
     for(let spot of this.spots) {
-      if(!spot.isOccupied && vehicle.canFitInSpot(spot)) {
-        tempSpots.push(spot)
+      if(vehicle.canFit(spot) && !spot.isOccupied) {
+        tempTempSpots.push(spot);
+        console.log("Push")
+        if(tempTempSpots.length >= vehicle.spotsNeeded) {
+          tempSpots.push([...tempTempSpots])
+          tempTempSpots = []
+        }
+      }
+      else {
+        console.log("Dame")
+        tempTempSpots = []
       }
     }
+  if(tempSpots.length === 0) {
+    return null;
+  }
 
-    if(tempSpots.length < vehicle.spotsNeeded) {
-      return false;
+  tempSpots.sort((a, b) => a.length - b.length)
+  return tempSpots[0];
+  }
+
+  public assignSpots(vehicle: Vehicle): boolean {
+    console.log(this._level)
+    const spots = this.allocateSpots(vehicle)
+    console.log(spots)
+    if(!spots) {
+      return false
     }
-
-    vehicle.park(tempSpots)
+    for (let spot of spots) {
+      spot.assign(vehicle)
+    }
     return true;
   }
 

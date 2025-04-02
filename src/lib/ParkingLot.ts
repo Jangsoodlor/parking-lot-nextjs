@@ -8,6 +8,7 @@ class ParkingLot {
   private static readonly SPOTS_PER_LEVEL = 10;
 
   private constructor(nLevels: number, spotsPerLevel: number) {
+    this.levels = []
     for(let i=0;i<nLevels;i++) {
       this.levels.push(new ParkingLevel(i, spotsPerLevel))
     }
@@ -15,11 +16,15 @@ class ParkingLot {
 
   public assignParkingSpot(vehicle: Vehicle): boolean {
     for (let level of this.levels) {
-      if(level.assignParkingSpot(vehicle)) {
+      if(level.assignSpots(vehicle)) {
+        console.log("Parked Successfully")
         return true;
       }
     }
+
+    console.log("Onii-chan")
     return false;
+
   }
 
   public static getInstance() {

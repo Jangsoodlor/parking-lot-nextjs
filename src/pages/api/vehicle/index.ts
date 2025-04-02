@@ -3,10 +3,9 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import MongoDBManager from "@/lib/dbConnect";
 import ParkingSpot from "@/lib/ParkingSpot";
 
-interface CreateVehicleBody {
+interface VehicleRequestBody {
   licensePlate: string;
   size: string
-  spot: ParkingSpot | null
 }
 
 async function get(req: NextApiRequest, res: NextApiResponse) {
@@ -25,7 +24,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse) {
-  const body = req.body as CreateVehicleBody;
+  const body = req.body as VehicleRequestBody;
   if(!body.licensePlate || !body.size) {
     res.status(400).json({error: "Missing License Plate and/or Vehicle Size."})
   }
