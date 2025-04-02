@@ -6,6 +6,11 @@ export default function Page() {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const vehicleResponse = await fetch(`/api/vehicle/?licensePlate=${formData.get("licensePlate")}`)
+    if(vehicleResponse.status === 404) {
+      setModalContent(JSON.stringify("Please register your vehicle first."))
+      setModalOpen(true)
+      return;
+    }
     const vehicle = await vehicleResponse.json()
     const response = await fetch('/api/parkcar', {
       method: 'POST',
@@ -14,13 +19,9 @@ export default function Page() {
       },
       body: JSON.stringify(vehicle)
     })
-    if(response.status === 404) {
-      setModalContent(JSON.stringify({"error": "error"}))
-    }
-    else {
-      const result = await response.json()
-      setModalContent(JSON.stringify(result, null, 2))
-    }
+    console.log(response.status)
+    const result = await response.json()
+    setModalContent(JSON.stringify(result, null, 2))
     setModalOpen(true)
   }
 

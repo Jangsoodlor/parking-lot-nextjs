@@ -31,14 +31,12 @@ class ParkingLevel {
     for(let spot of this.spots) {
       if(vehicle.canFit(spot) && !spot.isOccupied) {
         tempTempSpots.push(spot);
-        console.log("Push")
         if(tempTempSpots.length >= vehicle.spotsNeeded) {
           tempSpots.push([...tempTempSpots])
           tempTempSpots = []
         }
       }
       else {
-        console.log("Dame")
         tempTempSpots = []
       }
     }
@@ -51,9 +49,7 @@ class ParkingLevel {
   }
 
   public assignSpots(vehicle: Vehicle): boolean {
-    console.log(this._level)
     const spots = this.allocateSpots(vehicle)
-    console.log(spots)
     if(!spots) {
       return false
     }

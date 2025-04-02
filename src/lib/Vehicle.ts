@@ -3,14 +3,22 @@ import ParkingSpot from "./ParkingSpot";
 
 
 abstract class Vehicle {
-  protected licensePlate: string;
-  public spotsNeeded: number;
+  protected _licensePlate: string;
+  protected _spotsNeeded: number;
   protected _size: VehicleSize;
   protected spots: ParkingSpot[];
 
   public constructor(licensePlate: string) {
     this.spots = []
-    this.licensePlate = licensePlate
+    this._licensePlate = licensePlate
+  }
+
+  public get licensePlate(): string {
+    return this._licensePlate
+  }
+
+  public get spotsNeeded(): number {
+    return this._spotsNeeded
   }
 
   public get size() {
@@ -21,21 +29,20 @@ abstract class Vehicle {
     return false;
   }
 
-  public static getVehicle(licensePlate: string, size: string): Vehicle {
-    if (size===VehicleSize.Compact) {
-      return new Car(licensePlate)
-    } else if (size === VehicleSize.Large) {
-      return new Bus(licensePlate)
+  public exitParkingLot(): void {
+    for(let spots of this.spots) {
+      spots.freeSpot()
     }
-    return new Motorcycle(licensePlate)
+    while(this.spots.length >= 0) {
+      this.spots.pop()
+    }
   }
-
 }
 
 class Motorcycle extends Vehicle {
   public constructor(licensePlate: string) {
     super(licensePlate);
-    this.spotsNeeded = 1
+    this._spotsNeeded = 1
     this._size = VehicleSize.Motorcycle
   }
 
@@ -47,7 +54,7 @@ class Motorcycle extends Vehicle {
 class Car extends Vehicle {
   public constructor(licensePlate: string) {
     super(licensePlate);
-    this.spotsNeeded = 1
+    this._spotsNeeded = 1
     this._size = VehicleSize.Compact
   }
 
@@ -59,7 +66,7 @@ class Car extends Vehicle {
 class Bus extends Vehicle {
   public constructor(licensePlate: string) {
     super(licensePlate);
-    this.spotsNeeded = 5
+    this._spotsNeeded = 5
     this._size = VehicleSize.Large
   }
 

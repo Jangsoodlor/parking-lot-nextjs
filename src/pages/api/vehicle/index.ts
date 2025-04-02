@@ -19,7 +19,7 @@ async function get(req: NextApiRequest, res: NextApiResponse) {
   if (vehicles.length > 0) {
     res.status(200).json(vehicles);
   } else {
-    res.status(404);
+    res.status(404).json("Error");
   }
 }
 

@@ -9,7 +9,6 @@ export default function Page() {
       licensePlate: formData.get("licensePlate"),
       size: formData.get("size"),
     }
-    console.log(data)
     const response = await fetch('/api/vehicle', {
       method: 'POST',
       headers: {
@@ -18,7 +17,7 @@ export default function Page() {
       body: JSON.stringify(data),
     })
     if(response.status === 404 || response.status === 500) {
-      setModalContent(JSON.stringify({"error": "error"}, null, 2))
+      setModalContent("Error: Cannot create vehicle.")
     }
     else {
       const result = await response.json();
