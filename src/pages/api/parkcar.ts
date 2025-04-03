@@ -12,6 +12,7 @@ type Data = {
 interface vehicleBody {
   licensePlate: string;
   size: string
+  action: string
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse) {
@@ -21,9 +22,17 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
     body.size
   )
 
-  const canPark = ParkingLot.getInstance().assignParkingSpot(vehicle)
-  return res.status(200).json(canPark)
+  if(body.action === "park") {
+    const canPark = ParkingLot.getInstance().assignParkingSpot(vehicle)
+    return res.status(200).json(canPark)
+  }
+  return res.status(200).json(ParkingLot.getInstance().removeVehcile(body.licensePlate))
 }
+
+async function get(req: NextApiRequest, res: NextApiResponse) {
+  return res.status(200).json(ParkingLot.getInstance().visualiseSpots())
+}
+
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,5 +40,9 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     await post(req, res);
+  } else if(req.method === "GET") {
+    await get(req, res)
+  } else {
+    return res.status(404)
   }
 }

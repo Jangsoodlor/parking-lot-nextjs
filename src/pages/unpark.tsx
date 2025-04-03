@@ -2,17 +2,27 @@ import { FormEvent, useState } from 'react'
 
 export default function Page() {
 
-  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  async function parkCar(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    const response = await fetch('/api/unpark', {
+    const vehicleResponse = await fetch(`/api/vehicle/?licensePlate=${formData.get("licensePlate")}`)
+    if(vehicleResponse.status === 404) {
+      setModalContent(JSON.stringify("Please register your vehicle first."))
+      setModalOpen(true)
+      return;
+    }
+    const vehicle = await vehicleResponse.json()
+    const response = await fetch('/api/parkcar', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(formData.get("licensePlate"))
+      body: JSON.stringify({
+        licensePlate: vehicle[0].licensePlate,
+        size: vehicle[0].size,
+        action: "unpark"
+      })
     })
-    console.log(response.status)
     const result = await response.json()
     setModalContent(JSON.stringify(result, null, 2))
     setModalOpen(true)
@@ -23,8 +33,8 @@ export default function Page() {
 
   return (
     <div className="p-4">
-      <h1 className='font-bold text-2xl'>Unpark Car</h1>
-      <form onSubmit={onSubmit}>
+      <h1 className="text-3xl font-bold">Unpark Car</h1>
+      <form onSubmit={parkCar}>
         <legend>Input your license plate here</legend>
         <input type="text" name="licensePlate" className="bg-yellow-900" placeholder="license plate" required />
         <button type="submit" className="bg-green-900">Submit</button>

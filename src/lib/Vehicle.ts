@@ -13,6 +13,11 @@ abstract class Vehicle {
     this._licensePlate = licensePlate
   }
 
+
+  public assignSpot(spot: ParkingSpot) {
+    this.spots.push(spot)
+  }
+
   public get licensePlate(): string {
     return this._licensePlate
   }
@@ -33,9 +38,7 @@ abstract class Vehicle {
     for(let spots of this.spots) {
       spots.freeSpot()
     }
-    while(this.spots.length >= 0) {
-      this.spots.pop()
-    }
+    this.spots = []
   }
 }
 

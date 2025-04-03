@@ -18,7 +18,7 @@ class ParkingSpot{
     return this._size
   }
 
-  public assign(vehicle: Vehicle): void {
+  public assignVehicle(vehicle: Vehicle): void {
     this.vehicle = vehicle
   }
 
@@ -31,8 +31,8 @@ class ParkingSpot{
   }
 
   public visualiseSpot(): string {
-    if (this.vehicle !== null) {
-      return "Not Vacant"
+    if (this.vehicle instanceof Vehicle) {
+      return this.vehicle.licensePlate
     }
     return "vacant"
   }

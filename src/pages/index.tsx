@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState<string[][]>([]);
 
   useEffect(() => {
-    fetch("/api/visualiseSpots")
+    fetch("/api/parkcar")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
@@ -14,18 +14,18 @@ export default function Home() {
     let rows = [];
 
     for (let i = 0; i < parkingLot.length; i++) {
-      let cells = [<td key={`level-${i}`} className="p-3 font-bold text-black">Level {i + 1}</td>];
+      let cells = [<td key={`level-${i}`} className="p-3 font-bold">Level {i + 1}</td>];
 
       for (let j = 0; j < parkingLot[i].length; j++) {
         cells.push(
-          <td key={`spot-${i}-${j}`} className="p-3 text-center border text-black">
+          <td key={`spot-${i}-${j}`} className="p-3 text-center border">
             {parkingLot[i][j]}
           </td>
         );
       }
 
       rows.push(
-        <tr key={`row-${i}`} className="even:bg-gray-100 border-b text-black">
+        <tr key={`row-${i}`} className="border-b">
           {cells}
         </tr>
       );
@@ -35,8 +35,8 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50">
-      <h1 className="text-3xl font-bold mb-4 text-gray-800">Welcome to Parking Lot Website</h1>
+    <div className="p-6">
+      <h1 className="text-3xl font-bold mb-4 ">Welcome to Parking Lot Website</h1>
       <Link href="/register" className="text-blue-500 hover:underline mb-4 block">
         Register
       </Link>
@@ -48,7 +48,7 @@ export default function Home() {
       </Link>
 
       <div className="overflow-x-auto shadow-md rounded-lg">
-        <table className="w-full border-collapse border border-gray-300 bg-white">
+        <table className="w-full border-collapse border">
           <tbody>{generateTable(data)}</tbody>
         </table>
       </div>

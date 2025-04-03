@@ -16,7 +16,7 @@ class ParkingLot {
   }
 
   public assignParkingSpot(vehicle: Vehicle): string {
-    if(this.vehicles[vehicle.licensePlate] !== undefined) {
+    if(this.vehicles[vehicle.licensePlate] instanceof Vehicle) {
       return "The vehicle is already parked!"
     }
 
@@ -30,11 +30,12 @@ class ParkingLot {
   }
 
   public removeVehcile(licensePlate: string): string{
-    if(this.vehicles[licensePlate] === undefined) {
-      return "The car is not in the parking lot!"
+    if (this.vehicles[licensePlate] instanceof Vehicle) {
+      this.vehicles[licensePlate].exitParkingLot()
+      delete this.vehicles[licensePlate]
+      return "Vehicle exits successfully"
     }
-    this.vehicles[licensePlate].exitParkingLot()
-    return "Vehicle exits successfully."
+    return "The car is not in the parking lot!"
   }
 
   public static getInstance() {

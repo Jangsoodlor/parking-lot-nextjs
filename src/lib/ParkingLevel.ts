@@ -54,8 +54,10 @@ class ParkingLevel {
       return false
     }
     for (let spot of spots) {
-      spot.assign(vehicle)
-      console.log("Assign")
+      spot.assignVehicle(vehicle)
+      vehicle.assignSpot(spot)
+      console.log(spot)
+      console.log(spot.visualiseSpot())
     }
     return true;
   }
