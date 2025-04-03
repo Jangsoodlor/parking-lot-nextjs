@@ -55,6 +55,7 @@ class ParkingLevel {
     }
     for (let spot of spots) {
       spot.assign(vehicle)
+      console.log("Assign")
     }
     return true;
   }
@@ -62,7 +63,7 @@ class ParkingLevel {
   public visualiseSpots(): string[] {
     const temp = []
     for(let spot of this.spots) {
-      temp.push(spot.isOccupied.toString())
+      temp.push(spot.visualiseSpot())
     }
     return temp
   }

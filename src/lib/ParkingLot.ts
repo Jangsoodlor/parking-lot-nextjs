@@ -29,16 +29,17 @@ class ParkingLot {
     return "Parking lot is Full."
   }
 
-  public removeVehcile(licensePlate: string): {} {
+  public removeVehcile(licensePlate: string): string{
     if(this.vehicles[licensePlate] === undefined) {
-      return {"notice" : "The car is not in the parking lot!"}
+      return "The car is not in the parking lot!"
     }
     this.vehicles[licensePlate].exitParkingLot()
-    return {"notice" : "Vehicle exits successfully."}
+    return "Vehicle exits successfully."
   }
 
   public static getInstance() {
     if(!ParkingLot.instance) {
+      console.log("U")
       ParkingLot.instance = new ParkingLot(ParkingLot.LEVELS, ParkingLot.SPOTS_PER_LEVEL);
     }
     return ParkingLot.instance

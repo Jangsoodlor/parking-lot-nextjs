@@ -29,6 +29,13 @@ class ParkingSpot{
   public get isOccupied() {
     return this.vehicle !== null
   }
+
+  public visualiseSpot(): string {
+    if (this.vehicle !== null) {
+      return "Not Vacant"
+    }
+    return "vacant"
+  }
 }
 
 export default ParkingSpot

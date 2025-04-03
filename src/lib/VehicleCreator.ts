@@ -2,7 +2,7 @@ import VehicleSize from "./VehicleSize"
 import {Car, Motorcycle, Bus, Vehicle} from "./Vehicle"
 
 
-class VehicleFactory {
+class VehicleCreator {
   private static vehicles: { [licensePlate: string]: Vehicle } = {}
 
   public static getVehicle(licensePlate: string, size: string): Vehicle {
@@ -19,4 +19,4 @@ class VehicleFactory {
 
 }
 
-export default VehicleFactory
+export default VehicleCreator

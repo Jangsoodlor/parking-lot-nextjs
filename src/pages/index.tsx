@@ -40,6 +40,12 @@ export default function Home() {
       <Link href="/register" className="text-blue-500 hover:underline mb-4 block">
         Register
       </Link>
+      <Link href="/parkcar" className="text-blue-500 hover:underline mb-4 block">
+        Park Car
+      </Link>
+      <Link href="/unpark" className="text-blue-500 hover:underline mb-4 block">
+        Unpark
+      </Link>
 
       <div className="overflow-x-auto shadow-md rounded-lg">
         <table className="w-full border-collapse border border-gray-300 bg-white">

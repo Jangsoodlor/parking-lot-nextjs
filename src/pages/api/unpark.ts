@@ -11,17 +11,12 @@ type Data = {
 
 interface vehicleBody {
   licensePlate: string;
-  size: string
 }
 
 async function post(req: NextApiRequest, res: NextApiResponse) {
   const body = req.body as vehicleBody
-  const vehicle: Vehicle = VehicleCreator.getVehicle(
-    body.licensePlate,
-    body.size
-  )
 
-  const canPark = ParkingLot.getInstance().assignParkingSpot(vehicle)
+  const canPark = ParkingLot.getInstance().removeVehcile(body.licensePlate)
   return res.status(200).json(canPark)
 }
 
