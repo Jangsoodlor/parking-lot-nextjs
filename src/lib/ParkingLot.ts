@@ -43,6 +43,14 @@ class ParkingLot {
     }
     return ParkingLot.instance
   }
+
+  public visualiseSpots() {
+    let temp = []
+    for(let level of this.levels) {
+      temp.push(level.visualiseSpots())
+    }
+    return temp
+  }
 }
 
 export default ParkingLot

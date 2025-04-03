@@ -59,6 +59,13 @@ class ParkingLevel {
     return true;
   }
 
+  public visualiseSpots(): string[] {
+    const temp = []
+    for(let spot of this.spots) {
+      temp.push(spot.isOccupied.toString())
+    }
+    return temp
+  }
 }
 
 export default ParkingLevel
