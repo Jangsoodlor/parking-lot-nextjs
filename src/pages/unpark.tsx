@@ -12,7 +12,7 @@ export default function Page() {
       return;
     }
     const vehicle = await vehicleResponse.json()
-    const response = await fetch('/api/parkcar', {
+    const response = await fetch('/api/parking', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json"

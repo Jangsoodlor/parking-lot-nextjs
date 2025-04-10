@@ -5,7 +5,7 @@ export default function Home() {
   const [data, setData] = useState<string[][]>([]);
 
   useEffect(() => {
-    fetch("/api/parkcar")
+    fetch("/api/parking")
       .then((res) => res.json())
       .then((data) => setData(data));
   }, []);
